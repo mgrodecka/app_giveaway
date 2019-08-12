@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 TARGETS = (
     (1, "dzieci"),
@@ -28,13 +29,13 @@ class TrustedInstitutions(models.Model):
         return self.name
 
 class UsersDonations(models.Model):
-    user_id = models.ForeignKey(User, on_delete = models.CASCADE, null=True)
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE, null=True)
     number_donations = models.IntegerField(default=0)
     number_bags = models.IntegerField(default=0)
     number_institutions = models.IntegerField(default=0)
 
 class Donations(models.Model):
-    user =  models.ForeignKey(User, on_delete = models.CASCADE, null=True)
+    user =  models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE, null=True)
     donation_type = models.IntegerField(choices=DONATIONS)
     number_of_bags = models.IntegerField(default=0)
     recipient_type = models.IntegerField(choices=TARGETS)
